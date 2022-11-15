@@ -1,0 +1,16 @@
+.card-header {
+    height: 50px;
+
+    .dropstart {
+        float: right;
+
+        .threedots:after {
+            content: "\2026";
+            font-size: 30px;
+            line-height: 0.5;
+            cursor: pointer;
+        }
+    }
+
+    
+}

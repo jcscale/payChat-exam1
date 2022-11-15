@@ -1,0 +1,6 @@
+export const CREATE_PERSON = "CREATE_PERSON"
+export const RETRIEVE_PERSONS = "RETRIEVE_PERSONS"
+export const GET_PERSON = "GET_PERSON"
+export const UPDATE_PERSON = "UPDATE_PERSON"
+export const DELETE_PERSON = "DELETE_PERSON"
+
