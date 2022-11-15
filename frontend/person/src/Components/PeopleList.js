@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { retrievePersons, deletePerson } from "../Actions/Actions";
 import Card from 'react-bootstrap/Card';
@@ -63,7 +64,9 @@ const PeopleList = () => {
                     </Dropdown>
                     </Card.Header>
                     <Card.Body>
-                        <Card.Title>{person.name}</Card.Title>
+                        <Link to={`/${person._id}`} >
+                            <Card.Title>{person.name}</Card.Title>
+                        </Link>
                         <Card.Text>
                         {person.email}
                         </Card.Text>
