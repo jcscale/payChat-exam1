@@ -8,9 +8,9 @@ import {
 
 import Services from '../Services/Services'
 
-export const createPerson = (name, email, mobile_number, address) => async(dispatch) => {
+export const createPerson = (name, email, mobile_number, address, age, about, friends) => async(dispatch) => {
     try {
-        const res = await Services.create({name, email, mobile_number, address})
+        const res = await Services.create({name, email, mobile_number, address, age, about, friends})
 
         dispatch({
             type: CREATE_PERSON,

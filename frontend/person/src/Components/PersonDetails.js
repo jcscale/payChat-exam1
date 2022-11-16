@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {useParams} from "react-router-dom"
+import Container from 'react-bootstrap/Container';
+import { Link, Route, Routes, useParams  } from "react-router-dom";
 import Services from "../Services/Services";
+import './styles/PersonDetails.scss'
 
 const PersonDetails = () => {
     const {personId} = useParams()
@@ -9,7 +11,9 @@ const PersonDetails = () => {
         name: "",
         email: "",
         mobile_number: "",
-        address: ""
+        address: "",
+        age: "",
+        about: ""
     }
 
     const [person, setPerson] = useState(initialPersonState)
@@ -22,7 +26,9 @@ const PersonDetails = () => {
                 name: response.data.name,
                 email: response.data.email,
                 mobile_number: response.data.mobile_number,
-                address: response.data.address
+                address: response.data.address,
+                age: response.data.age,
+                about: response.data.about
             })
         })
         .catch((err) => {
@@ -32,16 +38,36 @@ const PersonDetails = () => {
     
     useEffect(() => {
         getPerson()
+        console.log(person)
     }, [])
 
     return (
-        <>
-            <p>{person.name}</p>
-            <p>{person.email}</p>
-            <p>{person.mobile_number}</p>
-            <p>{person.address}</p>
+        <div className="details">
+            <div className="person_details">
+                <h2>Person Details</h2> 
+                <Link to={`/friends/${person.id}`} >
+                    View Friends
+                </Link>
+            </div>  
+
+            <Container>
+
+                <p className="data">{person.name}</p>
+                <p className="label">Name</p>
+                <p className="data">{person.email}</p>
+                <p className="label">Email</p>
+                <p className="data">{person.mobile_number}</p>
+                <p className="label">Mobile number</p>
+                <p className="data">{person.address}</p>
+                <p className="label">Address</p>
+                <p className="data">{person.age}</p>
+                <p className="label">Age</p>
+                <p className="data">{person.about}</p>
+                <p className="label">About</p>
+            </Container>
             
-        </>
+            
+        </div>
     )
 }
 

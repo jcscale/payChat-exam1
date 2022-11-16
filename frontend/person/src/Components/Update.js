@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form';
 import { useDispatch } from "react-redux";
 import { updatePerson } from "../Actions/Actions";
 import Services from "../Services/Services";
+import { TagsInput } from "react-tag-input-component";
+import './styles/Update.scss'
 
 const Update = (props) => {
     const dispatch = useDispatch()
@@ -16,7 +18,9 @@ const Update = (props) => {
     }
 
     const [person, setPerson] = useState(initialPersonState)
+    const [friend, setFriend] = useState([])
     const [submitted, setSubmitted] = useState(false)
+    const [show, setShow] = useState(false);
 
     const getPerson = () => {
         Services.get(props.personId)
@@ -26,8 +30,11 @@ const Update = (props) => {
                 name: response.data.name,
                 email: response.data.email,
                 mobile_number: response.data.mobile_number,
-                address: response.data.address
+                address: response.data.address,
+                age: response.data.age,
+                about: response.data.about
             })
+            setFriend(response.data.friends)
         })
         .catch((err) => {
             err = new Error()
@@ -35,6 +42,7 @@ const Update = (props) => {
     }
 
     useEffect(() => {
+        console.log(props)
         if(props.personId) {
             getPerson(props.personId)
         }
@@ -47,9 +55,18 @@ const Update = (props) => {
 
     const updatePersonHandler = (e) => {
         e.preventDefault()
-        dispatch(updatePerson(person.id, person))
+        const personData = {...person, friends:friend}
+        dispatch(updatePerson(person.id, personData))
         .then((response) => {
-            console.log(response)
+            // setPerson({
+            //     id: "",
+            //     name: "",
+            //     email: "",
+            //     mobile_number: "",
+            //     address: ""
+            // })
+            // setFriend([])
+            props.close(true)
         })
         .catch((error) => {
             error = new Error();
@@ -61,7 +78,7 @@ const Update = (props) => {
         <>
         <Modal show={props.show} onHide={props.close}>
             <Modal.Header closeButton>
-            <Modal.Title>Add Person</Modal.Title>
+            <Modal.Title>Update Person</Modal.Title>
             </Modal.Header>
             <Modal.Body>
             <Form onSubmit={(e)=>updatePersonHandler(e)}>
@@ -108,9 +125,39 @@ const Update = (props) => {
                         name="address"
                     /> 
                 </Form.Group>
+
+                <Form.Group className="mb-3" controlId="age">
+                    <Form.Label>Age</Form.Label>
+                    <Form.Control 
+                        type="number" 
+                        placeholder="Enter age" 
+                        value={person.age}
+                        onChange={handleInputChange}
+                        name="age"
+                    /> 
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="about">
+                    <Form.Label>About</Form.Label>
+                    <Form.Control 
+                        type="text" 
+                        placeholder="Enter about" 
+                        value={person.about}
+                        onChange={handleInputChange}
+                        name="about"
+                    /> 
+                </Form.Group>
+
+                <TagsInput
+                    name="friends"
+                    placeHolder="Enter friends"
+                    value={friend}
+                    onChange={setFriend}
+                />
+                <em>press enter to add new friend</em>
                 
-                <Button variant="primary" type="submit">
-                    Submit
+                <Button variant="primary" type="submit" className="update_btn">
+                    Update
                 </Button>
             </Form>
             </Modal.Body>

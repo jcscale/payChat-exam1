@@ -6,7 +6,10 @@ exports.create = (req, res) => {
         name: req.body.name,
         email: req.body.email,
         mobile_number: req.body.mobile_number,
-        address: req.body.address
+        address: req.body.address,
+        age: req.body.age,
+        about: req.body.about,
+        friends: req.body.friends
     })
 
     person
@@ -66,7 +69,10 @@ exports.update = (req, res) => {
             email: req.body.email,
             mobile_number: req.body.mobile_number,
             email: req.body.email,
-            address: req.body.address
+            address: req.body.address,
+            age: req.body.age,
+            about: req.body.about,
+            friends: req.body.friends
         },
         { new: true}
     )

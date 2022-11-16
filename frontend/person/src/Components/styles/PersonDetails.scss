@@ -1,0 +1,42 @@
+.details {
+    .person_details {
+        height: 80px;
+        background-color: green;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        margin-bottom: 20px;
+        justify-content: space-between;
+    
+        h2 {
+            color: white;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            margin: 0px;
+            cursor: pointer;
+        }
+
+
+    }
+
+    .container {
+        text-align: left;
+        
+        .data {
+            font-size: 30px;
+            font-weight: 900;
+            margin-bottom: 0px;
+        }
+    
+        .label {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+    }   
+
+
+
+}

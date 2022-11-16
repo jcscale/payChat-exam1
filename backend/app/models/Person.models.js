@@ -16,7 +16,21 @@ const PersonSchema = mongoose.Schema({
     address: {
         type: String,
         required: true
-    }
+    },
+    age: {
+        type: String,
+        required: false
+    },
+    about : {
+        type: String,
+        required: false
+    },
+    friends: [
+        {
+            type: String,
+            required: false
+        }
+    ]
 })
 
 module.exports = mongoose.model("Person", PersonSchema)

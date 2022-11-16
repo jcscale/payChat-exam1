@@ -4,6 +4,8 @@ import { createPerson } from '../Actions/Actions';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import './styles/Modal.scss'
+import { TagsInput } from "react-tag-input-component";
 
 function ModalComponent() {
 
@@ -15,6 +17,7 @@ function ModalComponent() {
     }
 
     const [person, setPerson] = useState(initialPersonState)
+    const [friend, setFriend] = useState([])
     const [submitted, setSubmitted] = useState(false)
 
     const dispatch = useDispatch()
@@ -28,16 +31,21 @@ function ModalComponent() {
 
     const savePerson = (e) => {
         e.preventDefault()
-        const {name, email, mobile_number, address} = person
+        const data = {...person, friends: friend}
+        const {name, email, mobile_number, address, age, about, friends} = data
 
-        dispatch(createPerson(name, email, mobile_number, address))
+        dispatch(createPerson(name, email, mobile_number, address, age, about, friends))
             .then((data) => {
                 setPerson({
-                    name: data.name,
-                    email: data.email,
-                    mobile_number: data.mobile_number,
-                    address: data.address
+                    name: "",
+                    email: "",
+                    mobile_number: "",
+                    address: "",
+                    age: "",
+                    about: ""
                 })
+                setFriend([])
+                setShow(false)
                 setSubmitted(true)
                 console.log(data)
             })
@@ -56,8 +64,8 @@ function ModalComponent() {
 
     return (
         <>
-        <Button variant="primary" onClick={handleShow}>
-            Launch demo modal
+        <Button variant="primary" onClick={handleShow} className="add_people">
+            Add people
         </Button>
 
         <Modal show={show} onHide={handleClose}>
@@ -109,8 +117,39 @@ function ModalComponent() {
                         name="address"
                     /> 
                 </Form.Group>
+
+                <Form.Group className="mb-3" controlId="age">
+                    <Form.Label>Age</Form.Label>
+                    <Form.Control 
+                        type="number" 
+                        placeholder="Enter age" 
+                        value={person.age}
+                        onChange={handleInputChange}
+                        name="age"
+                    /> 
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="about">
+                    <Form.Label>About</Form.Label>
+                    <Form.Control 
+                        type="text" 
+                        placeholder="Enter about" 
+                        value={person.about}
+                        onChange={handleInputChange}
+                        name="about"
+                    /> 
+                </Form.Group>
                 
-                <Button variant="primary" type="submit">
+
+                <TagsInput
+                    name="friends"
+                    placeHolder="Enter friends"
+                    value={friend}
+                    onChange={setFriend}
+                />
+                <em>press enter to add new friend</em>
+                
+                <Button variant="primary" type="submit" className='modal-btn'>
                     Submit
                 </Button>
             </Form>

@@ -50,31 +50,36 @@ const PeopleList = () => {
     }
 
     return (
-        <Container>
-            <ModalComponent/>
-            {allPersons.map((person) => (
-                <Card key={person._id}>
-                    <Card.Header>
-                    <Dropdown drop="start">
-                        <Dropdown.Toggle as={CustomToggle}></Dropdown.Toggle>
-                        <Dropdown.Menu size="sm" title="">
-                            <Dropdown.Item onClick={(e) => handleUpdate(person._id)}>update</Dropdown.Item>
-                            <Dropdown.Item onClick={(e) => handleDelete(person._id)}>delete</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    </Card.Header>
-                    <Card.Body>
-                        <Link to={`/${person._id}`} >
-                            <Card.Title>{person.name}</Card.Title>
-                        </Link>
-                        <Card.Text>
-                        {person.email}
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
-            ))}
-            <Update show={showUpdate} close={() => setShowUpdate(false)} personId={personId}/>
-        </Container> 
+        <>
+            <div className="people_list">
+                <h2>People List</h2>
+            </div>
+            <Container>
+                <ModalComponent/>
+                {allPersons.map((person) => (
+                    <Card key={person._id} className="people_card">
+                        <Card.Header>
+                        <Dropdown drop="start">
+                            <Dropdown.Toggle as={CustomToggle}></Dropdown.Toggle>
+                            <Dropdown.Menu size="sm" title="">
+                                <Dropdown.Item onClick={(e) => handleUpdate(person._id)}>update</Dropdown.Item>
+                                <Dropdown.Item onClick={(e) => handleDelete(person._id)}>delete</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        </Card.Header>
+                        <Card.Body>
+                            <Link to={`/${person._id}`} >
+                                <Card.Title>{person.name}</Card.Title>
+                            </Link>
+                            <Card.Text>
+                            {person.email}
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                ))}
+                <Update show={showUpdate} close={() => setShowUpdate(false)} personId={personId}/>
+            </Container> 
+        </>
     )
 }
 
